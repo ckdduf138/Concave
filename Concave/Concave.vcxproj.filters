@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Images">
+      <UniqueIdentifier>{6015e638-1ea8-45d2-bb72-1b90ab89811b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Background">
+      <UniqueIdentifier>{fa2401e9-3d57-4fa4-8f4e-1ba239d7e0e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Set">
+      <UniqueIdentifier>{0db6389f-7d1a-4087-9bb6-511454a116ee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Concave.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSet.h">
+      <Filter>Set</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Background</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGame.h">
+      <Filter>Set</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Set</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Concave.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowSet.cpp">
+      <Filter>Set</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Background</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGame.cpp">
+      <Filter>Set</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Set</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Concave.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Concave.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\WhiteStone.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\BlackStone.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\BlackStone_Ch.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\WhiteStone_Ch.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Timer.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\GameStart_Screen.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Btn_AI.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Btn_AI._OnClick.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Btn_PVP_OnClick.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Btn_PVP.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Btn_Exit_OnClick.bmp">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Btn_Exit.bmp">
+      <Filter>Images</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
