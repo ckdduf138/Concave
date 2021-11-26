@@ -72,9 +72,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
     <Image Include="Concave.ico">
       <Filter>리소스 파일</Filter>
     </Image>
@@ -113,6 +110,9 @@
     </Image>
     <Image Include="Assets\Btn_Exit.bmp">
       <Filter>Images</Filter>
+    </Image>
+    <Image Include="Assets\Icon.ico">
+      <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
 </Project>

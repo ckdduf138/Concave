@@ -168,11 +168,11 @@
     <Image Include="Assets\Btn_PVP.bmp" />
     <Image Include="Assets\Btn_PVP_OnClick.bmp" />
     <Image Include="Assets\GameStart_Screen.bmp" />
+    <Image Include="Assets\Icon.ico" />
     <Image Include="Assets\Timer.bmp" />
     <Image Include="Assets\WhiteStone.bmp" />
     <Image Include="Assets\WhiteStone_Ch.bmp" />
     <Image Include="Concave.ico" />
-    <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

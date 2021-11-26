@@ -1,0 +1,5 @@
+﻿  Concave.cpp
+C:\chang_yeol\github\Concave\Concave\Concave.cpp(712,62): warning C4805: '==': 연산에 'BOOL' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+C:\chang_yeol\github\Concave\Concave\Concave.cpp(724,61): warning C4805: '==': 연산에 'BOOL' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+C:\chang_yeol\github\Concave\Concave\Concave.cpp(739,59): warning C4805: '==': 연산에 'BOOL' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+  Concave.vcxproj -> C:\chang_yeol\github\Concave\x64\Debug\Concave.exe
