@@ -19,7 +19,7 @@ void GameSetting();                                                 // 게임 �
 void PaintMainScreen(HDC hdc);                                      // 메인화면 그리는 함수
 void Paint_PVPButton(HDC hdc);                                      // 메인화면 [PVP] 버튼 그리는 함수     
 void Paint_AIButton(HDC hdc);                                       // 메인화면 [AI] 버튼 그리는 함수 
-void Paint_ExitButton(HDC hdc,int x, int y);                                 // 메인화면 [나가기] 버튼 그리는 함수 
+void Paint_ExitButton(HDC hdc,int x, int y);                        // 메인화면 [나가기] 버튼 그리는 함수 
 void PaintStone(HDC hdc);                                           // 지금까지 둔 돌을 그리는 함수
 void PaintCharacter(HDC hdc);                                       // 캐릭터 그리는 함수
 void PaintTimer(HDC hdc);                                           // 타이머 그리는 함수

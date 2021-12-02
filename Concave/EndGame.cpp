@@ -2,20 +2,22 @@
 
 void EndGame(HWND hWnd,int is_stone,int *ScreenStatus)
 {
+	// Å¸ÀÌ¸Ó Á×ÀÓ
 	KillTimer(hWnd, Timer_ID_Start);
 	KillTimer(hWnd, Timer_ID_Second);
 
+	// ½Â¸® Ã³¸®
 	if (is_stone == -1);
 	else if (is_stone % 2 == 0)
 	{
-		MessageBox(0, L"Èæµ¹ ½Â¸®", L"½Â¸®", MB_OK);
+		MessageBox(hWnd, L"Èæµ¹ ½Â¸®", L"½Â¸®", MB_OK);
 	}
 	else
 	{
-		MessageBox(0, L"¹éµ¹ ½Â¸®", L"½Â¸®", MB_OK);
+		MessageBox(hWnd, L"¹éµ¹ ½Â¸®", L"½Â¸®", MB_OK);
 	}
 
+	// ½ºÅ©¸° »óÅÂ¸¦ Start »óÅÂ·Î º¯°æ
 	*ScreenStatus = StartScreen;
-
 	InvalidateRect(hWnd, NULL, false);
 }
