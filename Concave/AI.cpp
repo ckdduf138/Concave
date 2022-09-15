@@ -21,7 +21,7 @@ void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn)
     // [가중치 증가]
 
     // 한칸 기준으로 가중치 저장
-    OneAdd(weightBoard, whoTurn);
+    OneAdd(weightBoard);
 
     // 2 - 1 일때 가중치 증가 -> 돌 하나를 놓았을때 사목이 되면 가중치 증가
     Two_OneAdd(weightBoard);
@@ -34,33 +34,26 @@ void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn)
 }
 
 // 한칸 기준으로 가중치 저장
-void OneAdd(vector<vector<int>> &Temp_board, int Who_Turn)
+void OneAdd(vector<vector<int>> &weightBoard)
 {
 
     for (int x = 0; x < 16; x++)
     {
         for (int y = 0; y < 16; y++)
         {
+            // 놓인 수가 없다면 continue
+            if (stronCheck[x][y] == 0) continue;
+
             for (int dir = 0; dir < 8; dir++)
             {
-                // 놓인 수가 없다면 continue
-                if (stronCheck[x][y] == 0) continue;
-
                 int nx = x + dirX[dir];
                 int ny = y + dirY[dir];
-
-                if (nx < 0 || nx >= 16 || ny < 0 || ny >= 16) continue;
-                if (stronCheck[nx][ny] > 0) continue;
                 
-                // 흑돌일 경우 + 백돌일 경우 -
-                if (Temp_board[nx][ny] == 0)
-                {
-                    (Who_Turn % 2 == 0) ? Temp_board[nx][ny] = 1 : Temp_board[nx][ny] = -1;
-                }
-                else
-                {
-                    (Who_Turn % 2 == 0) ? Temp_board[nx][ny]++ : Temp_board[nx][ny]--;
-                }
+                if (nx < 0 || nx >= 16 || ny < 0 || ny >= 16)   continue; // 범위 밖이면 continue            
+                if (stronCheck[nx][ny] > 0)                     continue; // 돌이 이미 놓여 있다면
+                
+                // 흑돌(1)일 경우 + 백돌(2)일 경우 -
+                weightBoard[nx][ny] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
             }
         }
     }
