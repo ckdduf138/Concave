@@ -47,7 +47,7 @@ struct StoneInfo {
 RECT garbage;                                           // 쓰레기 RECT
 RECT Background_Rect = { 180,30,820,670 };              // Background(오목판) 크기
 vector<vector<RECT>> Bg_Rect(16, vector<RECT>(16));     // Background RECT 벡터
-vector<vector<int>> Bg_Check(16, vector<int>(16));      // 바둑알이 있는지 check하는 벡터
+vector<vector<int>> Bg_Check(16, vector<int>(16));      // 바둑알이 있는지 check하는 벡터 1: 흑돌 2: 백돌
 vector<StoneInfo> Stone;                                // 바둑판에 놓인 돌 저장 벡터
 
 // 남쪽부터 시작

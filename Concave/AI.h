@@ -4,6 +4,7 @@
 using namespace std;
 
 #define Search_number 20
+#define weight_one 1
 
 // 오목 돌 세팅
 void SetBoard(vector<vector<int>> Bg_Check);
@@ -12,7 +13,7 @@ void SetBoard(vector<vector<int>> Bg_Check);
 void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn);
 
 // 한칸 기준으로 가중치 저장
-void OneAdd(vector<vector<int>>& Temp_board, int whoTurn);
+void OneAdd(vector<vector<int>>& Temp_board);
 
 // 3개 이상 일때 가중치 증가
 void ThreeAdd(vector<vector<int>>& Temp_board, int stone_num, int whoTurn);
