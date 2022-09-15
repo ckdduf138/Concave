@@ -455,53 +455,33 @@ DWORD WINAPI AI(LPVOID lpParam)
     HWND hWnd = (HWND)lpParam;
     HDC hdc = GetDC(hWnd);
 
-    // 최종적 가중치
-    vector<vector<int>> Final_board(16, vector<int>(16));
+    // 가중치 저장 벡터
+    vector<vector<int>> weightBoard(16, vector<int>(16, 0));
 
-    // 판의 돌을 보고 돌의 가중치 저장
-    vector<vector<int>> AI_board(16, vector<int>(16));
+    // 돌 저장 벡터
+    vector<vector<int>> stoneBoard(16, vector<int>(16, 0));
 
     // 가중치 값중 가장 큰 것들
     vector<pair<int, int>> min_value;
 
-    int Who_Turn = 1; // 백돌 선공
+    int whoTurn = 1; // 백돌 선공
     int maximum = -INF;
     int minimum = INF;
 
     // AI 시작 ------
 
-    // AI_board 를 Undefined로 초기화
-    Reset_Board(AI_board);
-
-    // [가중치 증가]
-
-    // 한칸 기준으로 가중치 저장
-    OneAdd(AI_board, Bg_Check, Who_Turn);
-
-    // 2 - 1 일때 가중치 증가 -> 돌 하나를 놓았을때 사목이 되면 가중치 증가
-    Two_OneAdd(AI_board, Bg_Check);
-
-    // 3개 이상 일때 가중치 증가
-    ThreeAdd(AI_board, Bg_Check, 3, Who_Turn);
-
-    // 4개 이상 일때 가중치 증가
-    ThreeAdd(AI_board, Bg_Check, 4, Who_Turn);
-
-
-
-    Sleep(500);
     // [READY]
-    // AI_STACK에 가중치값 저장
-    // [RUNNING]
     
-    //Ready_AI(AI_board,Bg_Check, Who_Turn);
+    SetBoard(Bg_Check);
+    // [RUNNING]
+    Running_AI(weightBoard, stoneBoard, whoTurn);
     
     // 가장 작은 값 찾기
     for (int i = 0; i < 16; i++)
     {
         for (int j = 0; j < 16; j++)
         {
-            minimum = min(minimum, AI_board[i][j]);
+            minimum = min(minimum, weightBoard[i][j]);
         }
     }
 
@@ -510,7 +490,7 @@ DWORD WINAPI AI(LPVOID lpParam)
     {
         for (int j = 0; j < 16; j++)
         {
-            if (AI_board[i][j] == minimum)
+            if (weightBoard[i][j] == minimum)
             {
                 min_value.push_back({ i,j });
             }
