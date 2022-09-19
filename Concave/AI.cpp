@@ -19,6 +19,8 @@ void SetBoard(vector<vector<int>> _stronCheck)
 void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn)
 {
     // [가중치 증가]
+    // 흑돌일 경우 가중치가 가장 낮은 곳이 최적의 위치
+    // 백돌일 경우 가중치가 가장 높은 곳이 최적의 위치
 
     // 한칸 기준으로 가중치 저장
     OneAdd(weightBoard);
@@ -27,10 +29,7 @@ void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn)
     Two_OneAdd(weightBoard);
 
     // 3개 이상 일때 가중치 증가
-    ThreeAdd(weightBoard, 3, whoTurn);
-
-    // 4개 이상 일때 가중치 증가
-    ThreeAdd(weightBoard, 4, whoTurn);
+    ThreeAdd(weightBoard);
 }
 
 // 한칸 기준으로 가중치 저장
@@ -59,156 +58,94 @@ void OneAdd(vector<vector<int>> &weightBoard)
     }
 }
 
-// 3개 이상 일때 가중치 증가
-void ThreeAdd(vector<vector<int>>& Temp_board, int stone_num, int Who_Turn)
+// 두칸 기준으로 가중치 저장
+void TwoAdd(vector<vector<int>>& weightBoard)
 {
     for (int x = 0; x < 16; x++)
     {
         for (int y = 0; y < 16; y++)
         {
-            // 돌이 없다면 continue
+            // 놓인 수가 없다면 continue
             if (stronCheck[x][y] == 0) continue;
-            
-            // 돌이 어떤 돌인지
-            int What_Stone;
-            if (stronCheck[x][y] == 1) What_Stone = 1;
-            else                     What_Stone = 2;
 
-            // 방향 
-            for (int dir = 0; dir < 4; dir++)
+            for (int dir = 0; dir < 8; dir++)
             {
-                // 돌이 3개 혹은 4개가 만들어 졌는가
-                int is_ok_left = 0;
-                int is_ok_right = 0;
+                int nx = x + dirX[dir] * 2;
+                int ny = y + dirY[dir] * 2;
 
-                for (int left = 1; left < stone_num; left++)
-                {
-                    // 현재 돌을 기준으로 왼쪽에 돌이 몇개 있는가
-                    int left_x = x + dirX[dir] * left;
-                    int left_y = y + dirY[dir] * left;
+                if (nx < 0 || nx >= 16 || ny < 0 || ny >= 16)   continue; // 범위 밖이면 continue            
+                if (stronCheck[nx][ny] > 0)                     continue; // 돌이 이미 놓여 있다면
 
-                    // 조건에 충족한다면
-                    if (left_x >= 0 && left_x < 16 && left_y >= 0 && left_y < 16)
-                    {
-                        if (stronCheck[left_x][left_y] == What_Stone) is_ok_left++;
-                        else break;
-                    }
-                }
-
-                for (int right = 1; right < stone_num; right++)
-                {
-                    // 현재 돌을 기준으로 오른쪽에 돌이 몇개 있는가
-                    int right_x = x + dirX[(dir + 4) % 8] * right;
-                    int right_y = y + dirY[(dir + 4) % 8] * right;
-
-                    // 조건에 충족한다면
-                    if (right_x >= 0 && right_x < 16 && right_y >= 0 && right_y < 16)
-                    {
-                        if (stronCheck[right_x][right_y] == What_Stone) is_ok_right++;
-                        else break;
-                    }
-                }
-
-                // 돌이 3개 혹은 4개가 연속으로 있을 경우
-                if (is_ok_left + is_ok_right == stone_num - 1)
-                {
-                    int add_left_x = x + dirX[dir] * (is_ok_left + 1);
-                    int add_left_y = y + dirY[dir] * (is_ok_left + 1);
-                    int add_right_x = x + dirX[(dir + 4) % 8] * (is_ok_right + 1);
-                    int add_right_y = y + dirY[(dir + 4) % 8] * (is_ok_right + 1);
-
-                    if (add_left_x < 0 || add_left_x >= 16 || add_left_y < 0 || add_left_y >= 16)       continue;
-                    if (add_right_x < 0 || add_right_x >= 16 || add_right_y < 0 || add_right_y >= 16)   continue;
-
-                    // 3개일 경우
-                    if (stone_num == 3)
-                    {
-                        // 양쪽이 다 돌이 없는 경우
-                        if (stronCheck[add_left_x][add_left_y] == 0 && stronCheck[add_right_x][add_right_y] == 0)
-                        {
-                            if (add_left_x + dirX[dir] >= 0 && add_left_x + dirX[dir] < 16 && add_left_y + dirX[dir] >= 0 && add_left_y + dirY[dir] < 16)
-                            {
-                                if (stronCheck[add_left_x + dirX[dir]][add_left_y + dirY[dir]] == 0)
-                                {
-                                    (Who_Turn % 2 == 0) ? Temp_board[add_left_x][add_left_y] += 50 : Temp_board[add_left_x][add_left_y] -= 50;
-                                }
-                            }
-                            
-                            if (add_right_x + dirX[(dir + 4) % 8] >= 0 && add_right_x + dirX[(dir + 4) % 8] < 16 &&
-                                add_right_y + dirY[(dir + 4) % 8] >= 0 && add_right_y + dirY[(dir + 4) % 8] < 16)
-                            if (stronCheck[add_right_x + dirX[(dir + 4) % 8]][add_right_y + dirY[(dir + 4) % 8]] == 0)
-                            {
-                                (Who_Turn % 2 == 0) ? Temp_board[add_right_x][add_right_y] += 50 : Temp_board[add_right_x][add_right_y] -= 50;
-                            }
-                        }
-                        else
-                        {
-                            if (add_left_x + dirX[dir] >= 0 && add_left_x + dirX[dir] < 16 && add_left_y + dirY[dir] >= 0 && add_left_y + dirY[dir] < 16)
-                            {
-                                if (stronCheck[add_left_x + dirX[dir]][add_left_y + dirY[dir]] == 0 && stronCheck[add_left_x][add_left_y] == 0)
-                                {
-                                    (Who_Turn % 2 == 0) ? Temp_board[add_left_x][add_left_y] += 1 : Temp_board[add_left_x][add_left_y] -= 1;
-                                }
-                            }
-
-                            if (add_right_x + dirX[(dir + 4) % 8] >= 0 && add_right_x + dirX[(dir + 4) % 8] < 16 &&
-                                add_right_y + dirY[(dir + 4) % 8] >= 0 && add_right_y + dirY[(dir + 4) % 8] < 16)
-                            {
-                                if (stronCheck[add_right_x + dirX[(dir + 4) % 8]][add_right_y + dirY[(dir + 4) % 8]] == 0 && stronCheck[add_right_x][add_right_y] == 0)
-                                {
-                                    (Who_Turn % 2 == 0) ? Temp_board[add_right_x][add_right_y] += 1 : Temp_board[add_right_x][add_right_y] = -1;
-                                }
-                            }
-                        }
-                    }
-                    else    // 4개일 경우
-                    {
-
-                        if (stronCheck[add_left_x][add_left_y] == 0)
-                        {
-                            (Who_Turn % 2 == 0) ? Temp_board[add_left_x][add_left_y] += 100 : Temp_board[add_left_x][add_left_y] -= 100;
-
-                        }
-
-                        if (stronCheck[add_right_x][add_right_y] == 0)
-                        {
-                            (Who_Turn % 2 == 0) ? Temp_board[add_right_x][add_right_y] += 100 : Temp_board[add_right_x][add_right_y] -= 100;
-                        }
-                    }
-
-                }
-
+                // 흑돌(1)일 경우 + 백돌(2)일 경우 -
+                weightBoard[nx][ny] += (stronCheck[x][y] == 1) ? weight_two * -1 : weight_two;
             }
         }
     }
 }
 
 // 2 - 1 일때 가중치 증가 -> 돌 하나를 놓았을때 사목이 되면 가중치 증가
-void Two_OneAdd(vector<vector<int>>& Temp_board)
+void Two_OneAdd(vector<vector<int>>& weightBoard)
 {
     for (int x = 0; x < 16; x++)
     {
         for (int y = 0; y < 16; y++)
         {
-            
+            // 돌이 이미 있다면 continue..
             if (stronCheck[x][y] != 0) continue;
-            
-            for (int what_stone = 1; what_stone <= 2; what_stone++)
-            {
-                if (is_Cheking_Stone(x, y, 4, what_stone) == true)
-                {
-                    (what_stone == 1) ? Temp_board[x][y] = -100 : Temp_board[x][y] = -100;
-                }
-            }
 
             for (int what_stone = 1; what_stone <= 2; what_stone++)
             {
-                if (is_Cheking_Stone(x, y, 5, what_stone) == true)
+                if (is_Cheking_Stone(x, y, 4, what_stone))
                 {
-                    (what_stone == 1) ? Temp_board[x][y] = -INF : Temp_board[x][y] = -INF;
+                    weightBoard[x][y] += (what_stone == 1) ? weight_three * -1: weight_three;
                 }
             }
+        }
+    }
+}
 
+// 3개일때 가중치 증가
+void ThreeAdd(vector<vector<int>>& weightBoard)
+{
+    for (int x = 0; x < 16; x++)
+    {
+        for (int y = 0; y < 16; y++)
+        {
+            // 돌이 없다면 continue..
+            if (stronCheck[x][y] == 0) continue;
+
+            for (int dir = 0; dir < 4; dir++)
+            {
+                // x, y 를 기준으로 한칸 위치한 돌
+                StonePos left_one = { x + dirX[dir], y + dirY[dir] };
+                StonePos right_one = { x + dirX[(dir + 4) % 8], y + dirY[(dir + 4) % 8] };
+
+                // x, y 를 기준으로 두칸 위치한 돌
+                StonePos left_two = { x + dirX[dir] * 2, y + dirY[dir] * 2 };
+                StonePos right_two = { x + dirX[(dir + 4) % 8] * 2, y + dirY[(dir + 4) % 8] * 2 };
+
+                // 같은 색으로 3개 만들어졌을경우
+                if (stronCheck[x][y] == stronCheck[left_one.x][left_one.y] && stronCheck[x][y] == stronCheck[right_one.x][right_one.y])
+                {
+                    // 3개를 만들었으나 양쪽 돌이 다른색이면 continue..
+                    if (stronCheck[x][y] == stronCheck[left_one.x][left_one.y] + 1 % 2 && stronCheck[x][y] == stronCheck[right_one.x][right_one.y] + 1 % 2)
+                    {
+                        continue;
+                    }
+
+                    // 오직 3개
+                    if (stronCheck[left_two.x][left_two.y] == 0 && stronCheck[right_two.x][right_two.y] == 0)
+                    {
+                        weightBoard[left_two.x][left_two.y] += (stronCheck[x][y] == 1) ? weight_three * -1 : weight_three;
+                        weightBoard[right_two.x][right_two.y] += (stronCheck[x][y] == 1) ? weight_three * -1 : weight_three;
+                    }
+                    //else
+                    //{
+                    //    weightBoard[left_two.x][left_two.y] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
+                    //    weightBoard[right_two.x][right_two.y] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
+                    //}
+                }
+            }
         }
     }
 }
