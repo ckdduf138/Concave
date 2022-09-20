@@ -461,9 +461,6 @@ DWORD WINAPI AI(LPVOID lpParam)
     // 돌 저장 벡터
     vector<vector<int>> stoneBoard(16, vector<int>(16, 0));
 
-    // 가중치 값중 가장 큰 것들
-    vector<pair<int, int>> min_value;
-
     int whoTurn = 1; // 백돌 선공
     int maximum = -INF;
     int minimum = INF;
@@ -474,40 +471,15 @@ DWORD WINAPI AI(LPVOID lpParam)
     
     SetBoard(Bg_Check);
     // [RUNNING]
-    Running_AI(weightBoard, stoneBoard, whoTurn);
-    
-    // 가장 작은 값 찾기
-    for (int i = 0; i < 16; i++)
-    {
-        for (int j = 0; j < 16; j++)
-        {
-            minimum = min(minimum, weightBoard[i][j]);
-        }
-    }
-
-    // 작은 값이 여러개 라면 vector에 저장
-    for (int i = 0; i < 16; i++)
-    {
-        for (int j = 0; j < 16; j++)
-        {
-            if (weightBoard[i][j] == minimum)
-            {
-                min_value.push_back({ i,j });
-            }
-        }
-    }
-
-    // 값이 같은 것중 랜덤으로 착수
-    int random = rand() % min_value.size();
+    pair<int, int> value = Running_AI(weightBoard, stoneBoard, whoTurn);
 
     // AI가 최종적으로 돌을 놓을 X Y 좌표
-    int embroider_x = min_value[random].first;
-    int embroider_y = min_value[random].second;
-
+    int embroider_x = value.first;
+    int embroider_y = value.second;
 
     // 돌 그리기
     DrawStone(hWnd, Bg_Rect[embroider_x][embroider_y].left, Bg_Rect[embroider_x][embroider_y].top);
-    Stone.push_back({ Bg_Rect[embroider_x][embroider_y].left,Bg_Rect[embroider_x][embroider_y].top,is_stone });
+    Stone.push_back({ Bg_Rect[embroider_x][embroider_y].left, Bg_Rect[embroider_x][embroider_y].top, is_stone });
 
     Bg_Check[embroider_x][embroider_y] = (is_stone % 2) + 1; // 1: 흑돌 2: 백돌
     
@@ -534,8 +506,6 @@ DWORD WINAPI AI(LPVOID lpParam)
         // 턴을 체인지함
         TurnChange(hWnd);
     }
-
-    min_value.clear();
 
     return 0;
 }

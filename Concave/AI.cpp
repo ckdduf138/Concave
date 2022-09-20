@@ -6,17 +6,57 @@ int dirY[8] = { 0,1,1,1,0,-1,-1,-1 };
 
 vector<vector<int>> stronCheck(16, vector<int>(16));      // 바둑알이 있는지 check하는 벡터
 
-void Running_AI(vector<vector<int>> &weightBoard, vector<vector<int>>& stoneBoard, int whoTurn)
+pair<int, int> Running_AI(vector<vector<int>> weightBoard, vector<vector<int>>& stoneBoard, int whoTurn)
 {
-    WeightAdd(weightBoard, whoTurn);
+    WeightAdd(weightBoard);
+
+    // 가중치 값 오름차순
+    priority_queue<WeightInfo, vector<WeightInfo>, sortcompareAsc> minValue;
+
+    // 가중치 값 내림차순
+    priority_queue<WeightInfo, vector<WeightInfo>, sortcompareDesc> maxValue;
+
+    // 가중치 저장
+    for (int x = 0; x < 16; x++)
+    {
+        for (int y = 0; y < 16; y++)
+        {
+            minValue.push({ x,y,weightBoard[x][y] });
+            maxValue.push({ x,y,weightBoard[x][y] });
+        }
+    }
+    
+    WeightInfo minV;
+    WeightInfo maxV;
+
+    while (!minValue.empty())
+    {
+        minV = minValue.top();
+
+        if (stronCheck[minV.x][minV.y] == 0) break;
+
+        minValue.pop();
+    }
+
+    while (!maxValue.empty())
+    {
+        maxV = maxValue.top();
+
+        if (stronCheck[maxV.x][maxV.y] == 0) break;
+
+        maxValue.pop();
+    }
+
+    return abs(minV.value) > abs(maxV.value) ? pair<int, int>{minV.x, minV.y} : pair<int, int>{ maxV.x, maxV.y };
 }
+
 
 void SetBoard(vector<vector<int>> _stronCheck)
 {
     stronCheck = _stronCheck;
 }
 
-void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn)
+void WeightAdd(vector<vector<int>>& weightBoard)
 {
     // [가중치 증가]
     // 흑돌일 경우 가중치가 가장 낮은 곳이 최적의 위치
@@ -25,17 +65,22 @@ void WeightAdd(vector<vector<int>>& weightBoard, int whoTurn)
     // 한칸 기준으로 가중치 저장
     OneAdd(weightBoard);
 
+    // 두칸 기준으로 가중치 저장
+    TwoAdd(weightBoard);
+
     // 2 - 1 일때 가중치 증가 -> 돌 하나를 놓았을때 사목이 되면 가중치 증가
     Two_OneAdd(weightBoard);
 
-    // 3개 이상 일때 가중치 증가
+    // 3개 일때 가중치 증가 -> 돌 하나를 놓았을때 사목이 되면 가중치 증가
     ThreeAdd(weightBoard);
+
+    // 4개 일때 가중치 증가 -> 돌 하나를 놓았을때 오목이 되면 가중치 증가
+    FourAdd(weightBoard);
 }
 
 // 한칸 기준으로 가중치 저장
 void OneAdd(vector<vector<int>> &weightBoard)
 {
-
     for (int x = 0; x < 16; x++)
     {
         for (int y = 0; y < 16; y++)
@@ -139,11 +184,32 @@ void ThreeAdd(vector<vector<int>>& weightBoard)
                         weightBoard[left_two.x][left_two.y] += (stronCheck[x][y] == 1) ? weight_three * -1 : weight_three;
                         weightBoard[right_two.x][right_two.y] += (stronCheck[x][y] == 1) ? weight_three * -1 : weight_three;
                     }
-                    //else
-                    //{
-                    //    weightBoard[left_two.x][left_two.y] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
-                    //    weightBoard[right_two.x][right_two.y] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
-                    //}
+                    else
+                    {
+                        weightBoard[left_two.x][left_two.y] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
+                        weightBoard[right_two.x][right_two.y] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 4개일때 가중치 증가
+void FourAdd(vector<vector<int>>& weightBoard)
+{
+    for (int x = 0; x < 16; x++)
+    {
+        for (int y = 0; y < 16; y++)
+        {
+            // 돌이 이미 있다면 continue..
+            if (stronCheck[x][y] != 0) continue;
+
+            for (int what_stone = 1; what_stone <= 2; what_stone++)
+            {
+                if (is_Cheking_Stone(x, y, 5, what_stone))
+                {
+                    weightBoard[x][y] += (what_stone == 1) ? weight_four * -1 : weight_four;
                 }
             }
         }
