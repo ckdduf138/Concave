@@ -473,6 +473,8 @@ DWORD WINAPI AI(LPVOID lpParam)
     // [RUNNING]
     pair<int, int> value = Running_AI(weightBoard, stoneBoard, whoTurn);
 
+    Sleep(100);
+
     // AI가 최종적으로 돌을 놓을 X Y 좌표
     int embroider_x = value.first;
     int embroider_y = value.second;
