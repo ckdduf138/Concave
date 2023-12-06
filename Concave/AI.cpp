@@ -79,23 +79,23 @@ void WeightAdd(vector<vector<int>>& weightBoard)
 }
 
 // 한칸 기준으로 가중치 저장
-void OneAdd(vector<vector<int>> &weightBoard)
+void OneAdd(vector<vector<int>>& weightBoard)
 {
+
     for (int x = 0; x < 16; x++)
     {
         for (int y = 0; y < 16; y++)
         {
             // 놓인 수가 없다면 continue
             if (stronCheck[x][y] == 0) continue;
-
             for (int dir = 0; dir < 8; dir++)
             {
                 int nx = x + dirX[dir];
                 int ny = y + dirY[dir];
-                
+
                 if (nx < 0 || nx >= 16 || ny < 0 || ny >= 16)   continue; // 범위 밖이면 continue            
                 if (stronCheck[nx][ny] > 0)                     continue; // 돌이 이미 놓여 있다면
-                
+
                 // 흑돌(1)일 경우 + 백돌(2)일 경우 -
                 weightBoard[nx][ny] += (stronCheck[x][y] == 1) ? weight_one * -1 : weight_one;
             }

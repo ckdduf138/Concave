@@ -1,1 +1,10 @@
-﻿  Concave.vcxproj -> C:\chang_yeol\github\Concave\x64\Debug\Concave.exe
+﻿  AI.cpp
+  Background.cpp
+  Concave.cpp
+D:\LCY\Concave\Concave\Concave.cpp(664,58): warning C4805: '==': 연산에 'BOOL' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+D:\LCY\Concave\Concave\Concave.cpp(676,57): warning C4805: '==': 연산에 'BOOL' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+D:\LCY\Concave\Concave\Concave.cpp(691,55): warning C4805: '==': 연산에 'BOOL' 형식과 'bool' 형식을 함께 사용하는 것은 안전하지 않습니다.
+  EndGame.cpp
+  WindowSet.cpp
+  코드를 생성하고 있습니다...
+  Concave.vcxproj -> D:\LCY\Concave\x64\Debug\Concave.exe
